@@ -1,0 +1,77 @@
+<div class="row content m-0 justify-content-center">
+  <div class="col-md-6 mt-5">  
+    <div class="card">
+      <img [src]="previewUrl" class="card-img-top" *ngIf="previewUrl" class="card-img-top" alt="articulo">
+      <ngx-file-drop *ngIf="!previewUrl" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+      (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+          <!-- Optional custom content that replaces the the entire default content. -->
+          <!-- <button type="button" (click)="openFileSelector()">Browse Files</button> -->
+        </ng-template>
+      </ngx-file-drop>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="title">Titulo / Producto</label>
+            <input type="text" class="form-control" id="title" aria-describedby="title" formControlName="title">
+          </div>
+          <div class="row m-0 mb-4">
+            <div class="form-group col-md-6 pl-0">
+              <label for="price">Precio</label>
+              <input type="number" class="form-control" id="price" aria-describedby="price" formControlName="price">
+            </div>
+            <div class="form-group col-md-6 pr-0">
+              <label for="condition">Condición</label>
+              <select class="custom-select custom-select" id="condition" formControlName="condition">
+                <option selected>Condición</option>
+                <option value="1">Nueva</option>
+                <option value="2">Excelente</option>
+                <option value="3">Buena</option>
+                <option value="4">Mala</option>
+                <option value="5">No Funcional</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6 pl-0">
+              <label for="condition">Ubicación</label><br/>
+              <button class="btn border" (click)="onGetLocation()">Obtener Ubicación</button>
+            </div>
+            <div class="form-group col-md-6 pr-0">
+              <label for="category">Categoria</label>
+              <select class="custom-select custom-select" id="category" formControlName="category">
+                <option selected>Categoria</option>
+                <option value="1">Guitarras</option>
+                <option value="2">Amplificadores</option>
+                <option value="3">Pedales / Efectos</option>
+                <option value="4">Bajos</option>
+                <option value="5">Amplificadores Para Bajo</option>
+                <option value="6">Pedales / Efectos Para Bajo</option>
+                <option value="7">Baterias</option>
+                <option value="8">Sintetizadores</option>
+                <option value="9">Orquestra / Banda</option>
+                <option value="10">Pro-Audio / Accesorios</option>
+              </select>
+            </div>
+          </div>
+            <!-- <div class="col-6 p-0 text-right">
+              <span class="distance-span mr-4">15km</span>
+              <span>Tepatitlán de Morelos, Jalisco</span>
+            </div> -->
+          <!-- </div> -->
+          <!-- <p class="card-text">Fender Stratocaster en buenas condiciones.</p> -->
+          <textarea 
+            class="form-control" 
+            id="validationTextarea" 
+            placeholder="Escriba descripción aqui."
+            formControlName="description"
+            required
+          >
+          </textarea>
+          <div class="row m-0 mt-3 float-right">
+            <button class="btn btn-primary" (click)="onSave()">Publicar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+        

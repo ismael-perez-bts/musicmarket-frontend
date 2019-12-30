@@ -1,0 +1,32 @@
+.marker-holder {
+  height: 15px;
+  width: 15px;
+}
+
+.marker {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  top: 2px;
+  left: 0;
+}
+
+.excellent {
+  background-color: #c8e920;
+}
+
+.distance-span {
+  color: #777;
+}
+
+.card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-img-sm {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+}

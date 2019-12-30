@@ -1,0 +1,11 @@
+ngb-carousel {
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+  }
+}

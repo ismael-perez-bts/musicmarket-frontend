@@ -1,0 +1,21 @@
+<div class="card">
+  <img src="/assets/images/art1.jpg" class="card-img-top card-img-sm" alt="articulo">
+  <div class="card-body">
+    <h5 class="card-title">{{item.title}}</h5>
+    <p class="card-text">{{item.description}}</p>
+    <div class="row m-0">
+      <div class="col-6 p-0">
+        <span class="d-inline-block w-100 t">${{item.price}}</span>
+      </div>
+      <div class="col-6 p-0 text-right">
+        <div class="d-inline-block position-relative marker-holder">
+          <span class="d-inline-block position-absolute marker excellent"></span>
+        </div>
+        <span class="ml-2">Excelente</span>
+      </div>
+    </div>
+    <div class="m-0 mt-2 text-center w-100">
+      <span class="distance-span">{{item.km | number : '1.0-1'}}km</span>
+    </div>
+  </div>
+</div>

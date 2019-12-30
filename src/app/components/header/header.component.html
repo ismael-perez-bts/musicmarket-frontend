@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="#"><img src="/assets/images/header-logo.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Observando</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Carrito</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Notificaciones</a>
+      </li>
+    </ul>
+
+    <div class="form-inline my-2 my-lg-0 ml-4 mr-4">
+      <button class="btn btn-outline-success my-2 my-sm-0" (click)="redirectToNewListing()">Vender</button>
+      <button class="btn btn-outline-success my-2 my-sm-0 ml-3" 
+        *ngIf="!profile"
+        (click)="onOpenSignIn()"
+      >
+        Iniciar Sesión
+      </button>
+    </div>
+    <ul class="navbar-nav" *ngIf="profile">
+      <li class="nav-item dropdown">
+        <button class="btn avatar-container p-0 border-0" 
+          *ngIf="profile && profile.picture"
+          id="navbarDropdown" 
+          role="button" 
+          data-toggle="dropdown" 
+          aria-haspopup="true" 
+          aria-expanded="false"
+          ngbDropdownToggle
+        >
+          <img [src]="profile.picture" alt="profile image">
+        </button>
+        <div ngbDropdownMenu aria-labelledby="headerProfileDropdown">
+          <button ngbDropdownItem (click)="onViewProfile()">Perfil</button>
+          <button ngbDropdownItem (click)="onSignOut()">Cerrar Sesión</button>
+        </div>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/vender">Vender</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

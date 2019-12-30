@@ -1,0 +1,76 @@
+.login-container {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 2000;
+}
+
+.card {
+  height: 320px;
+  margin-top: calc(50% - 186px);
+}
+
+.view-buttons-container {
+  height: 35px;
+
+  .button-box {
+    background-color: #fff;
+    color: #0f99b5;
+
+    label {
+      line-height: 35px;
+    }
+  }
+
+  .button-box.active {
+    background-color: #0f99b5;
+    color: #fff;
+  }
+}
+
+button.sign-in {
+  background-color: #0f99b5;
+  color: #fff;
+}
+
+span.sign-in-fb {
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #4267B2;
+  color: #4267B2;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+span.sign-in-google {
+  border: 1px solid #4285F4;
+  border-radius: 5px;
+  color:  #4285F4;
+  background-color: #fff;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.close-btn-wrapper {
+  top: -10px;
+  right: -10px;
+  font-size: 35px;
+  height: 30px;
+  width: 30px;
+  background-color: #fff;
+  border-radius: 50px;
+
+  .close-btn {
+    top: -3px;
+    left: 0px;
+  }
+}
+
+  // .close-btn {
+  //   // top: -1px;
+  //   // right: 1px;
+  //   // background-color: #fff;
+  //   // border-radius: 50%;
+  //   // border: 2px solid #fff;
+  //   // font-size: 35px;
+  // }

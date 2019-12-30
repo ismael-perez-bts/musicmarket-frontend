@@ -1,0 +1,45 @@
+.content {
+  // background-image: url("/assets/images/art1.jpg");
+  // background-size: cover;
+  // background-repeat: no-repeat;
+
+  // .background-overlay {
+  //   background-color: rgba(255, 254, 249, 0.95);
+  // }
+  min-height: 100%;
+  // overflow: auto;
+  position: relative;
+  z-index: 100;
+  padding-bottom: 0;
+}
+
+.seller-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0f99b5;
+}
+
+.bar {
+  border: 1px solid #444;
+  width: 100px;
+  height: 12px;
+}
+
+.measure-bar {
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.avatar-container {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;;
+  }
+}

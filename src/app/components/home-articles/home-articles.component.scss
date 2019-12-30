@@ -1,0 +1,36 @@
+
+img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.category-box.card {
+  height: 200px;
+  overflow: hidden;
+
+  .card-body {
+    position: absolute;
+    color: #fff;
+    top: 0;
+    left: 0;
+    height: 200px;
+    width: 100%;
+    z-index: 1;
+    background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.2) 100%);
+    
+    h3 {
+      margin-top: 80px;
+      position: relative;
+      font-size: 24px;
+    }
+    // span {
+    //   line-height: 200px;
+    //   font-size: 40px;
+    // }
+  }
+}

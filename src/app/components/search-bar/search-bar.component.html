@@ -1,0 +1,28 @@
+<div class="row m-4">
+  <form [formGroup]="searchForm" class="form-inline px-3 my-lg-0 w-100">
+    <div class="col-md-6 p-0">
+      <input class="form-control mr-sm-2 w-100"
+        formControlName="keywords"
+        type="search" 
+        placeholder="Busqueda" 
+        aria-label="search">
+    </div>
+    <div class="col-md-3">
+      <select class="form-control custom-select mr-sm-2 w-100">
+        <option selected>Categoria</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <div class="col-md-2 pl-0">
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="locationCheckbox" formControlName="useCurrentLocation">
+        <label class="form-check-label" for="locationCheckbox">Usa ubicación actual</label>
+      </div>
+    </div>
+    <div class="col-md-1 p-0">
+      <button class="btn btn-outline-success my-2 my-sm-0 w-100 search-button" type="submit" (click)="onSearch()">Buscar</button>
+    </div>
+  </form>
+</div>
