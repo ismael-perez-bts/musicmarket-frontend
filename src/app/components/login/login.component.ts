@@ -6,7 +6,6 @@ import { FirebaseService } from '../../firebase/firebase.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [FirebaseService]
 })
 export class LoginComponent implements OnInit {
   @Output() onCloseSignIn: EventEmitter<void> = new EventEmitter<void>();

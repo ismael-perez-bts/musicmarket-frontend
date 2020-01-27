@@ -22,33 +22,35 @@ export class FirebaseService {
 
   constructor(private localStorageService: LocalStorageService) {
     this.firebase = firebase;
-
     this.firebase.initializeApp(this.firebaseConfig);
     this.provider = new firebase.auth.GoogleAuthProvider();
+
+    this.firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.renewToken();
+      }
+    });
   }
 
   public async signInWithPopup() {
     try {
       let result = await this.firebase.auth().signInWithPopup(this.provider);
-      let idToken = await this.firebase.auth().currentUser.getIdToken();
-
-      this.localStorageService.setItem('accessToken', result.credential.accessToken);
-      this.localStorageService.setItem('idToken', result.credential.idToken);
+      let idToken = await firebase.auth().currentUser.getIdToken(true);
+      this.localStorageService.setItem('token', result.credential.accessToken);
+      this.localStorageService.setItem('idToken', idToken);
       this.localStorageService.setItem('profile', JSON.stringify(result.additionalUserInfo.profile));
-
-      console.log(result);
-      console.log(idToken);
     } catch (e) {
       console.log(e);
       debugger;
     }
-      // .then(result => {
-      //   console.log('result: ', result);
-      //   debugger;
-      // })
-      // .catch(err => {
-      //   console.log('error', err);
-      //   debugger;
-      // });
+  }
+
+  public getToken() {
+    return this.localStorageService.getItem('idToken');
+  }
+
+  public async renewToken() {
+    let idToken = await firebase.auth().currentUser.getIdToken(true);
+    this.localStorageService.setItem('idToken', idToken);
   }
 }

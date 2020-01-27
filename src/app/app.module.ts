@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxFileDropModule } from 'ngx-file-drop';
@@ -20,8 +20,11 @@ import { SearchResultsComponent } from './components/search-results/search-resul
 import { ListingCardComponent } from './components/listing-card/listing-card.component';
 import { ListingViewComponent } from './components/listing-view/listing-view.component';
 import { LoginComponent } from './components/login/login.component';
+import { LocationComponent } from './components/dropdowns/location/location.component';
 
 import { LocalStorageService } from './services/localstorage.service';
+import { ItemsService } from './services/items.service';
+import { LocationsService } from './services/locations.service';
 
 import { itemsReducer } from './ngrx/reducers/items.reducer';
 import { ItemsEffects } from './ngrx/effects/items.effects';
@@ -29,6 +32,11 @@ import { ItemsEffects } from './ngrx/effects/items.effects';
 import { FirebaseModule } from './firebase/firebase.module';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SaleViewComponent } from './components/sale-view/sale-view.component';
+
+import { AuthInterceptor } from './middleware/auth.interceptor';
+import { FirebaseService } from './firebase/firebase.service';
+import { SingleViewComponent } from './components/single-view/single-view.component';
+import { SearchSidebarComponent } from './components/search-sidebar/search-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +53,10 @@ import { SaleViewComponent } from './components/sale-view/sale-view.component';
     ListingViewComponent,
     LoginComponent,
     ProfileComponent,
-    SaleViewComponent
+    SaleViewComponent,
+    SingleViewComponent,
+    LocationComponent,
+    SearchSidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -54,11 +65,22 @@ import { SaleViewComponent } from './components/sale-view/sale-view.component';
     FirebaseModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     StoreModule.forRoot({ items: itemsReducer }),
     EffectsModule.forRoot([ItemsEffects]),
     NgxFileDropModule
   ],
-  providers: [LocalStorageService],
-  bootstrap: [AppComponent]
+  providers: [
+    LocalStorageService,
+    ItemsService,
+    LocationsService,
+    FirebaseService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

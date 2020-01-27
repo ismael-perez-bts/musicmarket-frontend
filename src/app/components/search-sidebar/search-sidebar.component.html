@@ -1,0 +1,76 @@
+<div class="sidebar p-4" [ngClass]="{ 'mobile-open': showSideBar }">
+  <i 
+    class="toggle-icon fas fa-arrow-circle-right position-absolute"
+    [ngClass]="{ 'mobile-open': showSideBar }"
+    (click)="toggleSideBar()"
+  ></i>
+  <div class="mobile" [ngClass]="{ 'mobile-open': showSideBar }">
+    <label class="d-inline-block w-100 section-title font-weight-light m-0">Categoria</label>
+    <select 
+      class="form-control custom-select mr-sm-2 w-100"
+      [(ngModel)]="category"
+      (ngModelChange)="categoryChange.emit($event)"
+    >
+      <option value="0">Todas las categorias</option>
+        <ng-container *ngFor="let category of categories">
+          <option [value]="category.id">{{category.label}}</option>
+        </ng-container>
+    </select>
+
+    <label class="d-inline-block w-100 mt-4 section-title font-weight-light m-0">Busqueda</label>
+    <input type="text" class="form-control mr-sm-2 w-100" [(ngModel)]="keywords" (ngModelChange)="keywordChange.emit($event)"/>
+
+    <app-location 
+      [stateId]="stateId"
+      [cities]="cities"
+      [cityId]="cityId"
+      (requestStateData)="requestStateChange.emit($event)"
+      (cityIdChange)="cityIdChange.emit($event)"
+    >
+    </app-location>
+
+    <label class="d-inline-block w-100 mt-4 section-title font-weight-light m-0">Distancia</label>
+    <select 
+      class="form-control custom-select mr-sm-2 w-100"
+      [value]="distance"
+      (change)="distanceChange.emit($event.target.value)" 
+    >
+      <option value="0" selected>Cualquier Distancia</option>
+      <option value="25">25 km</option>
+      <option value="50">50 km</option>
+      <option value="100">100 km</option>
+      <option value="200">200 km</option>
+    </select>
+
+    <label class="d-inline-block w-100 mt-4 section-title font-weight-light m-0">Condición</label>
+    <select class="form-control custom-select mr-sm-2 w-100" [(ngModel)]="condition" (ngModelChange)="conditionChange.emit($event)">
+      <option value="0" selected>Todas condiciónes</option>
+      <option value="1">Nuevo</option>
+      <option value="2">Usado</option>
+    </select>
+    
+    <label class="d-inline-block w-100 mt-4 section-title font-weight-light m-0">Precio</label>
+    <input
+      class="d-inline-block form-control mr-sm-1 half-input"
+      type="number" placeholder="min."
+      aria-label="zip-code"
+      [(ngModel)]="min"
+      (ngModelChange)="minChange.emit($event)"
+    >
+    <span class="d-inline-block mr-2">.00</span>
+    <span class="d-inline-block half-input text-center"> a </span>
+    <input
+      class="d-inline-block form-control mr-sm-1 half-input mb-4"
+      type="number" placeholder="max."
+      aria-label="zip-code"
+      [(ngModel)]="max"
+      (ngModelChange)="maxChange.emit($event)"
+    >
+    <span class="d-inline-block mr-1">.00</span>
+
+    <button class="btn btn-outline-success my-2 my-sm-0 w-100 search-button" (click)="search()">Buscar</button>
+
+    <!-- <label class="d-inline-block mt-4 no-styling">Cualquier Distancia</label>
+    <input class="ml-2" type="checkbox" aria-label="Checkbox for following text input"> -->
+  </div>
+</div>

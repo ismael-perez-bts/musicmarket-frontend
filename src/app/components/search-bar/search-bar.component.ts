@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,10 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-  @Output() onSearchClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() searchClick: EventEmitter<any> = new EventEmitter<any>();
+  @Input() categories: Array<any>;
+
+  public caregoryId: string = '0';
 
   public searchForm: FormGroup = new FormGroup({
     useCurrentLocation: new FormControl(false),
@@ -20,9 +23,8 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSearch() {
+  search() {
     let value = this.searchForm.value;
-    this.onSearchClick.emit(value);
+    this.searchClick.emit(value);
   }
-
 }

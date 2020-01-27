@@ -13,6 +13,10 @@ export class LocalStorageService {
     return localStorage.getItem(prop);
   }
 
+  public getToken() {
+    return this.getItem('idToken');
+  }
+
   public clear() {
     localStorage.clear();
   }

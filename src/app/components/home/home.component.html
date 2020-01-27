@@ -1,7 +1,7 @@
 <div class="content w-100 positon-relative"> 
   <div class="background-overlay"> 
     <app-carousel></app-carousel>
-    <app-search-bar (onSearchClick)="onSearchClick($event)"></app-search-bar>
+    <app-search-bar (searchClick)="searchClick($event)" [categories]="categories"></app-search-bar>
     <app-home-categories></app-home-categories>
     <app-home-articles></app-home-articles>
   </div> 

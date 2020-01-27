@@ -12,30 +12,3 @@
   z-index: 100;
   padding-bottom: 0;
 }
-
-.sidebar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #eee;
-  height: 100%;
-  width: 100%;
-
-  label.section-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #0f99b5
-  }
-  
-  label.form-check-label {
-    font-size: 17px;
-  }
-
-  .half-input {
-    width: 40%;
-  }
-
-  .mid-span {
-    width: 10%;
-  }
-}

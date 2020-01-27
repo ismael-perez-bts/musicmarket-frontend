@@ -8,11 +8,20 @@
         aria-label="search">
     </div>
     <div class="col-md-3">
-      <select class="form-control custom-select mr-sm-2 w-100">
+      <!-- <select class="form-control custom-select mr-sm-2 w-100">
         <option selected>Categoria</option>
         <option value="1">One</option>
         <option value="2">Two</option>
         <option value="3">Three</option>
+      </select> -->
+      <select
+        name="categories"
+        class="form-control custom-select mr-sm-2 w-100"
+      >
+        <option value="0">Todas las categorias</option>
+        <ng-container *ngFor="let category of categories">
+          <option [value]="category.id">{{category.label}}</option>
+        </ng-container>
       </select>
     </div>
     <div class="col-md-2 pl-0">
@@ -22,7 +31,7 @@
       </div>
     </div>
     <div class="col-md-1 p-0">
-      <button class="btn btn-outline-success my-2 my-sm-0 w-100 search-button" type="submit" (click)="onSearch()">Buscar</button>
+      <button class="btn btn-outline-success my-2 my-sm-0 w-100 search-button" type="submit" (click)="search()">Buscar</button>
     </div>
   </form>
 </div>

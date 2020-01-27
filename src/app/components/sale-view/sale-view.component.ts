@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { ItemsService } from '../../services/items.service';
+import { Geolocation } from '../../models/geolocation.model';
 
 @Component({
   selector: 'app-sale-view',
@@ -15,10 +17,14 @@ export class SaleViewComponent implements OnInit {
     price: new FormControl(0),
     condition: new FormControl(''),
     category: new FormControl(''),
-    description: new FormControl('')
+    description: new FormControl(''),
+    latitude: new FormControl(''),
+    longitude: new FormControl('')
   });
 
-  constructor() { }
+  public image = new FormControl();
+
+  constructor(private itemsService: ItemsService) { }
 
   ngOnInit() {
   }
@@ -31,9 +37,7 @@ export class SaleViewComponent implements OnInit {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
- 
-          debugger;
-
+          this.image.setValue(file);
           var reader = new FileReader();      
           reader.readAsDataURL(file); 
           reader.onload = (_event) => { 
@@ -74,8 +78,30 @@ export class SaleViewComponent implements OnInit {
     console.log(event);
   }
 
-  public onSave() {
+  public async onSave() {
     console.log(this.form);
+    const item = new FormData();
+    item.append('file', this.image.value);
+    item.append('data', JSON.stringify(this.form.value));
     debugger;
+    this.itemsService.post(item).subscribe(data => {
+      debugger;
+    }, err => {
+      debugger;
+    });
+  }
+
+  public async getLocation() {
+    let location: Geolocation = await this.getLocationFromNavigator();
+    this.form.get('longitude').setValue(location.longitude);
+    this.form.get('latitude').setValue(location.latitude);
+  }
+
+  private async getLocationFromNavigator(): Promise<Geolocation> {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((position: Position) => {
+        resolve(position.coords);
+      });
+    });
   }
 }

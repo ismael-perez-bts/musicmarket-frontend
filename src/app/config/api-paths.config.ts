@@ -1,6 +1,7 @@
 const mainUrl = 'http://127.0.0.1:3000';
-const auth = `${mainUrl}/auth`;
-const items = `${auth}/items`;
+const api = `${mainUrl}/api`;
+
+export const items = `${api}/items`;
 
 export const searchItems = (params) => {
   let path = `${items}?`;
@@ -15,3 +16,8 @@ export const searchItems = (params) => {
 
   return path;
 };
+
+export const states = `${api}/states`;
+export const cityStates = id => `${states}/${id}`;
+export const categories = `${api}/categories`;
+export const itemById = id => `${items}/${id}`;
