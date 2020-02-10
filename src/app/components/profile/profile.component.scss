@@ -1,15 +1,8 @@
-
-img {
-  border-radius: 5px;
-}
-
-.editable {
-  top: 0;
-  right: 0;
-  color: #0000ff;
-  cursor: pointer;
-}
-
-.editable:hover {
-  text-decoration: underline;
+.user-info {
+  img {
+    height: 75px;
+    width: 75px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 }

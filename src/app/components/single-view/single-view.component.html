@@ -1,21 +1,23 @@
-<div class="card">
-  <!-- <img [src]="item.image_url" class="card-img-top card-img-sm" alt="articulo">
-  <div class="card-body">
-    <h5 class="card-title">{{item.title}}</h5>
-    <p class="card-text">{{item.description}}</p>
-    <div class="row m-0">
-      <div class="col-6 p-0">
-        <span class="d-inline-block w-100 t">${{item.price}}</span>
-      </div>
-      <div class="col-6 p-0 text-right">
-        <div class="d-inline-block position-relative marker-holder">
-          <span class="d-inline-block position-absolute marker excellent"></span>
+<div class="row px-0 py-3 m-0 justify-content-center content"> 
+  <div class="col-lg-6"> 
+    <div class="card">
+      <img [src]="item.image_url" class="card-img-top card-img-sm" alt="articulo">
+      <div class="card-body">
+        <h3 class="card-title text-center mb-1">{{item.title}}</h3>
+        <h5 class="font-weight-normal text-center mb-3">${{item.price}}.00</h5>
+        <p class="card-text mb-4">{{item.description}}</p>
+        <div class="col-12 p-0 text-left">
+          <label class="font-weight-bold mr-3">Condición: </label><span>{{condition}}</span>
         </div>
-        <span class="ml-2">Excelente</span>
+        <div class="col-12 p-0 text-left">
+          <label class="font-weight-bold mr-3">Ubicación: </label><span>{{item.city_name}}, {{item.state_name}}</span>
+        </div>
+      </div>
+
+      <div class="user-profile-container p-3 text-center">
+        <img [src]="item.user_profile_image" class="avatar" alt="avatar" (click)="redirectToUserProfile(item.user_id)"><br/>
+        <label class="font-weight-bold" (click)="redirectToUserProfile(item.user_id)">{{item.user_name}}</label>
       </div>
     </div>
-    <div class="m-0 mt-2 text-center w-100" *ngIf="item.km">
-      <span class="distance-span">{{item.km | number : '1.0-1'}}km</span>
-    </div>
-  </div> -->
+  </div>
 </div>

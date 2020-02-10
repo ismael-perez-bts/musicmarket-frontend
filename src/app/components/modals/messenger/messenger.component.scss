@@ -1,0 +1,139 @@
+.message-button {
+  background-color: #2dccdc;
+  border-color:  #2dccdc;
+  color: #fff;
+}
+
+img {
+  height: 32px;
+  width: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.input-container {
+  input {
+    width: 75%;
+    float: left;
+  }
+
+  .message-button {
+    width: calc(25% - 5px);
+    margin-left: 5px;
+  }
+}
+
+.message-area {
+  height: 300px;
+  overflow-y: auto;
+}
+
+.message-bubble {
+  background-color: #2dccdc;
+  color: #fff;
+  border-radius: 3px;
+  position: relative;
+  margin-left: 10px;
+}
+
+.message-bubble.other:after {
+  content: '';
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; 
+  border-right:10px solid #2dccdc;
+  position: absolute;
+  left: -10px;
+  top: calc(50% - 10px);
+}
+
+.message-bubble.self {
+  background-color: #fff;
+  color: #292929;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.message-bubble.self:before {
+  content: '';
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #ccc;
+  position: absolute;
+  right: -10px;
+  top: calc(50% - 10px);
+}
+
+.message-bubble.self:after {
+  content: '';
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #fff;
+  position: absolute;
+  right: -8px;
+  top: calc(50% - 10px);
+}
+
+
+// from ng bootstrap
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: .5rem;
+  pointer-events: none;
+}
+
+.modal-content {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: .3rem;
+  outline: 0;
+}
+
+.modal-body {
+  position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+
+.modal-header {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
+}
+
+.chat-background {
+  position: fixed;
+  height: 100px;
+  width: 100px;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+.chat-container {
+  position: fixed;
+  top: 100px;
+  background: white;
+  border-radius: 5px;
+}

@@ -1,0 +1,27 @@
+
+img {
+  border-radius: 5px;
+  height: 132px;
+  width: 132px;
+  object-fit: cover;
+}
+
+.editable {
+  top: 0;
+  right: 0;
+  color: #0000ff;
+  cursor: pointer;
+}
+
+.editable:hover {
+  text-decoration: underline;
+}
+
+::ng-deep .ngx-file-drop__drop-zone {
+  position: absolute !important;
+  top: 0 !important;
+  width: 132px !important;
+  height: 132px !important;
+  border-radius: 4px !important;
+  background-color: rgba(200,200,200,0.6) !important;
+}

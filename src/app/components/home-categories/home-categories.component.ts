@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-home-categories',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeCategoriesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly router: Router) { }
 
   ngOnInit() {
+  }
+
+  categoryRedirect(id): void {
+    let navigationExtras: NavigationExtras = { queryParams: { category: id }};
+    this.router.navigate(['/resultados'], navigationExtras);
   }
 
 }

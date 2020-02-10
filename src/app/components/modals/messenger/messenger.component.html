@@ -1,0 +1,35 @@
+<button class="btn message-button mt-4" (click)="open(content)">Enviar Mensaje Directo</button>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <img class="d-inline-block mr-2" [src]="profile.photo_url">
+    <h4 class="modal-title" id="modal-basic-title">{{profile.name}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+
+  <div class="modal-body">
+    <div class="message-area border rounded mb-2 p-2">
+      <ng-container *ngFor="let message of messages">
+        <div class="message-container w-100" [ngClass]="{ 'text-right': message.sender ===  own.uid }">
+          <div 
+            class="message-bubble p-2 mb-3 d-inline-block" 
+            [ngClass]="{ 'self': message.sender ===  own.uid, 'other': message.sender !==  own.uid }"
+          >
+            <span>{{message.message}}</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="input-container">
+      <input class="message-input form-control" type="text" [(ngModel)]="message" (keyup.enter)="sendMessage()">
+      <button class="btn message-button" (click)="sendMessage()">Enviar</button>
+    </div>
+  </div>
+
+
+</ng-template>

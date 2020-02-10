@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from '../services/localstorage.service';
+import { UsersService } from '../services/users.service';
+import { DataRequest } from '../models/request.model';
 import * as firebase from 'firebase';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -9,18 +12,25 @@ export class FirebaseService {
 
   public firebase;
   public provider;
-  private firebaseConfig = {
-    apiKey: "AIzaSyDJ7c9dwbB0Tuzjm0fmJelLANKwAEf6r28",
-    authDomain: "libro-solfeo.firebaseapp.com",
-    databaseURL: "https://libro-solfeo.firebaseio.com",
-    projectId: "libro-solfeo",
-    storageBucket: "libro-solfeo.appspot.com",
-    messagingSenderId: "240699576800",
-    appId: "1:240699576800:web:cd53f13746b218013e5b85",
-    measurementId: "G-B7TNX7Y8DG"
-  };
 
-  constructor(private localStorageService: LocalStorageService) {
+  private firebaseConfig = {
+    apiKey: environment.fireApiKey,
+    authDomain: environment.fireAuthDomain,
+    databaseURL: environment.fireDatabaseURL,
+    projectId: environment.fireProjectId,
+    storageBucket: environment.fireStorageBucket,
+    messagingSenderId: environment.fireMessagingSenderId,
+    appId: environment.fireAppId,
+    measurementId: environment.fireMeasurementId
+  };
+  
+
+  public db;
+
+  constructor(
+    private readonly localStorageService: LocalStorageService,
+    private readonly usersService: UsersService  
+  ) {
     this.firebase = firebase;
     this.firebase.initializeApp(this.firebaseConfig);
     this.provider = new firebase.auth.GoogleAuthProvider();
@@ -30,6 +40,9 @@ export class FirebaseService {
         this.renewToken();
       }
     });
+    // debugger;
+    // this.db = firebase.database();
+    // this.writeData();
   }
 
   public async signInWithPopup() {
@@ -38,7 +51,11 @@ export class FirebaseService {
       let idToken = await firebase.auth().currentUser.getIdToken(true);
       this.localStorageService.setItem('token', result.credential.accessToken);
       this.localStorageService.setItem('idToken', idToken);
-      this.localStorageService.setItem('profile', JSON.stringify(result.additionalUserInfo.profile));
+      
+      this.usersService.signIn(idToken).subscribe((data) => { 
+        this.localStorageService.setItem('profile', JSON.stringify(data));
+        this.usersService.updateProfileSubject.next(data);
+      });
     } catch (e) {
       console.log(e);
       debugger;
@@ -52,5 +69,19 @@ export class FirebaseService {
   public async renewToken() {
     let idToken = await firebase.auth().currentUser.getIdToken(true);
     this.localStorageService.setItem('idToken', idToken);
+  }
+
+  public writeData () {
+    this.firebase.database().ref('conversations').set({
+      from: 'n6pKm5W783Vjur22aYokkfwYstR2',
+      to: 'Ww0PUEqnCHcbpSLsKm7sydP0VRE3',
+      message: 'testing'
+    }).then(data => {
+      debugger;
+    }, err => {
+      debugger;
+    });
+
+    debugger;
   }
 }

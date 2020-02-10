@@ -1,0 +1,65 @@
+<div class="content row m-0 position-relative h-100" *ngIf="profile">
+  <div class="col-lg-3 border-right p-0">
+    <!-- <div class="user-info text-center">
+
+      <img [src]="profile.photo_url" class="d-inline-block">
+      <span class="d-inline-block w-100 mt-3">{{profile.name}}</span>
+      <app-messenger [profile]="profile"></app-messenger>
+    </div> -->
+
+    <h4 class="px-3 py-1 text-center border-bottom mb-0">Mensajes</h4>
+    <ng-container  *ngIf="chats">
+      <ng-container *ngFor="let chat of chats; let i = index">
+        <div class="chat-bubble-container border-bottom px-3 py-1 position-relative">
+          <div class="d-inline-block position-absolute img-wrapper">
+            <img class="d-inline-block mr-2" [src]="chat.user.photo_url">
+          </div>
+          <div class="d-inline-block text-container">
+            <label class="d-inline-block my-0 w-100">{{chat.user.name}}</label>
+            <p class="d-inline-block">{{chat.message}}</p>
+            <span class="w-100 d-inline-block time">{{chat.date | date: 'dd/MM/yyyy H:mm'}}</span>
+          </div>
+          <!-- <span class="d-inline-block w-100">{{chat.message}}</span> -->
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="col-lg-9 h-100 messanger-wrapper">
+    <div class="row m-0 justify-content-center">
+      <div class="col-lg-7 py-4">
+        <div class="messenger-container border p-3" [ngClass]="{ 'opaque': !selectedChat }">
+          <div class="header pb-2">
+            <ng-container *ngIf="selectedChat">
+              <img class="d-inline-block mr-2 messenger-image" [src]="profile.photo_url">
+              <h4 class="title d-inline-block" id="modal-basic-title">{{profile.name}}</h4>
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </ng-container>
+          </div>
+        
+        
+        
+          <div class="body">
+            <div class="message-area border rounded mb-2 p-2">
+              <!-- <ng-container *ngFor="let message of messages">
+                <div class="message-container w-100">
+                  <div 
+                    class="message-bubble p-2 mb-3 d-inline-block" 
+                  >
+                    <span>{{message.message}}</span>
+                  </div>
+                </div>
+              </ng-container> -->
+            </div>
+        
+            <div class="input-container">
+              <input class="message-input form-control" type="text">
+              <button class="btn message-button float-right mt-2">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

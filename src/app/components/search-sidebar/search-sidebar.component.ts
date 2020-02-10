@@ -29,19 +29,35 @@ export class SearchSidebarComponent implements OnInit {
 
   public showSideBar: boolean = false;
 
+  public distanceSlideValue: number;
+
+  /**
+   * 
+   */
   constructor() {
     
   }
 
+  /**
+   * 
+   */
   ngOnInit() {
-    console.log('stateId: ', this.stateId);
+    // if (!this.distance) {
+    //   this.distanceSlideValue = 0;
+    // } else {
+    //   this.distanceSlideValue = this.distance;
+    // }
+    console.log('distance: ', this.distance);
   }
 
-  search() {
+  /**
+   * Emits new search event.
+   */
+  search(): void {
     this.executeSearch.emit();
   }
 
-  toggleSideBar() {
+  public toggleSideBar(): void {
     this.showSideBar = !this.showSideBar;
   }
 }

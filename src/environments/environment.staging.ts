@@ -4,15 +4,15 @@
 
 export const environment = {
   production: false,
-  fireApiKey: 'AIzaSyDJ7c9dwbB0Tuzjm0fmJelLANKwAEf6r28',
-  fireAuthDomain: 'libro-solfeo.firebaseapp.com',
-  fireDatabaseURL: 'https://libro-solfeo.firebaseio.com',
-  fireProjectId: 'libro-solfeo',
-  fireStorageBucket: 'libro-solfeo.appspot.com',
-  fireMessagingSenderId: '240699576800',
-  fireAppId: '1:240699576800:web:cd53f13746b218013e5b85',
-  fireMeasurementId: 'G-B7TNX7Y8DG',
-  mainUrl: 'http://127.0.0.1:3000'
+  fireApiKey: 'AIzaSyDj4aMFcy8RDdEPfXGlb6e7YMu-Jh8xv1g',
+  fireAuthDomain: 'music-market-61e58.firebaseapp.com',
+  fireDatabaseURL: 'https://music-market-61e58.firebaseio.com',
+  fireProjectId: 'music-market-61e58',
+  fireStorageBucket: 'music-market-61e58.appspot.com',
+  fireMessagingSenderId: '398409787334',
+  fireAppId: '1:398409787334:web:97d24313b45ef49dfbf4c7',
+  fireMeasurementId: 'G-FTX47BVXMC',
+  mainUrl: 'http://api.octafuzz.com'
 };
 
 /*

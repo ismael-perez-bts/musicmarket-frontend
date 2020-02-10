@@ -25,19 +25,28 @@ import { LocationComponent } from './components/dropdowns/location/location.comp
 import { LocalStorageService } from './services/localstorage.service';
 import { ItemsService } from './services/items.service';
 import { LocationsService } from './services/locations.service';
+import { UsersService } from './services/users.service';
+import { ChatService } from './services/chats.service';
 
 import { itemsReducer } from './ngrx/reducers/items.reducer';
 import { ItemsEffects } from './ngrx/effects/items.effects';
 
 import { FirebaseModule } from './firebase/firebase.module';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 import { SaleViewComponent } from './components/sale-view/sale-view.component';
 
 import { AuthInterceptor } from './middleware/auth.interceptor';
 import { FirebaseService } from './firebase/firebase.service';
 import { SingleViewComponent } from './components/single-view/single-view.component';
 import { SearchSidebarComponent } from './components/search-sidebar/search-sidebar.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { MessengerComponent } from './components/modals/messenger/messenger.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { SliderBarComponent } from './components/slider-bar/slider-bar.component';
 
+/**
+ * @ignore
+ */
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,11 +61,15 @@ import { SearchSidebarComponent } from './components/search-sidebar/search-sideb
     ListingCardComponent,
     ListingViewComponent,
     LoginComponent,
-    ProfileComponent,
+    ProfileEditComponent,
     SaleViewComponent,
     SingleViewComponent,
     LocationComponent,
-    SearchSidebarComponent
+    SearchSidebarComponent,
+    ProfileComponent,
+    MessengerComponent,
+    MessagesComponent,
+    SliderBarComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +87,9 @@ import { SearchSidebarComponent } from './components/search-sidebar/search-sideb
     LocalStorageService,
     ItemsService,
     LocationsService,
+    UsersService,
     FirebaseService,
+    ChatService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

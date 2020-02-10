@@ -1,0 +1,12 @@
+.avatar {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-profile-container {
+  img, label {
+    cursor: pointer;
+  } 
+}

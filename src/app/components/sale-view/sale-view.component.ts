@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { ItemsService } from '../../services/items.service';
 import { Geolocation } from '../../models/geolocation.model';
+import { LocationsService } from '../../services/locations.service';
 
 @Component({
   selector: 'app-sale-view',
@@ -11,20 +12,32 @@ import { Geolocation } from '../../models/geolocation.model';
 })
 export class SaleViewComponent implements OnInit {
   public previewUrl: string | ArrayBuffer;
+
+  /**
+   * Image file dropped in drop area.
+   */
   public files: NgxFileDropEntry[] = [];
   public form: FormGroup = new FormGroup({
-    title: new FormControl(''),
-    price: new FormControl(0),
-    condition: new FormControl(''),
-    category: new FormControl(''),
-    description: new FormControl(''),
-    latitude: new FormControl(''),
-    longitude: new FormControl('')
+    title: new FormControl('', Validators.required),
+    price: new FormControl(0, Validators.required),
+    condition: new FormControl('', Validators.required),
+    category: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    latitude: new FormControl('', Validators.required),
+    longitude: new FormControl('', Validators.required),
+    cityId: new FormControl('', Validators.required),
+    stateId: new FormControl('', Validators.required)
   });
 
   public image = new FormControl();
 
-  constructor(private itemsService: ItemsService) { }
+  public cityName: string;
+  public stateName: string;
+
+  constructor(
+    private readonly itemsService: ItemsService,
+    private readonly locationService: LocationsService
+  ) { }
 
   ngOnInit() {
   }
@@ -79,11 +92,16 @@ export class SaleViewComponent implements OnInit {
   }
 
   public async onSave() {
-    console.log(this.form);
+
+    if (!this.form.valid) {
+
+      return;
+    }
+
     const item = new FormData();
     item.append('file', this.image.value);
     item.append('data', JSON.stringify(this.form.value));
-    debugger;
+
     this.itemsService.post(item).subscribe(data => {
       debugger;
     }, err => {
@@ -95,6 +113,15 @@ export class SaleViewComponent implements OnInit {
     let location: Geolocation = await this.getLocationFromNavigator();
     this.form.get('longitude').setValue(location.longitude);
     this.form.get('latitude').setValue(location.latitude);
+
+    this.locationService.getCityByCoordinates(location.latitude, location.longitude).subscribe(data => {
+      this.cityName = data.data.city_name;
+      this.stateName = data.data.name;
+      this.form.get('cityId').setValue(data.data.city_id);
+      this.form.get('stateId').setValue(data.data.state_id);
+    }, err => {
+      debugger;
+    });
   }
 
   private async getLocationFromNavigator(): Promise<Geolocation> {

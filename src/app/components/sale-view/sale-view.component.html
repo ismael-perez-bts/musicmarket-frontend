@@ -33,7 +33,14 @@
             </div>
             <div class="form-group col-md-6 pl-0">
               <label for="condition">Ubicación</label><br/>
-              <button class="btn border" (click)="getLocation()">Obtener Ubicación</button>
+              <span *ngIf="cityName && stateName">{{cityName}}, {{stateName}}</span>
+              <button
+                *ngIf="!cityName && !stateName"
+                class="btn border"
+                (click)="getLocation()"
+              >
+                Obtener Ubicación
+              </button>
             </div>
             <div class="form-group col-md-6 pr-0">
               <label for="category">Categoria</label>

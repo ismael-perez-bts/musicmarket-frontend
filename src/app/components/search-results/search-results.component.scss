@@ -12,3 +12,67 @@
   z-index: 100;
   padding-bottom: 0;
 }
+
+.sort-button {
+  height: 45px;
+  padding-top: 2px;
+  width: 75px;
+  background-color: #fff;
+  color: #495057;
+  cursor: pointer;
+  transition: 0.7s;
+  opacity: 1;
+
+  i {
+    font-size: 20px;
+    cursor: inherit;
+    margin-top: 3px;
+  }
+
+  label {
+    font-size: 11px;
+    bottom: -8px;
+    left: 0;
+    cursor: inherit;
+  }
+}
+
+.sort-button.active {
+  background-color: #2dccdc;
+  border-color: #2dccdc !important;
+  color: #fff;
+  transition: 0.7s;
+}
+
+.sort-button.disabled {
+  opacity: 0.4;
+  cursor: default;
+  transition: 0.7s;
+}
+
+h2.section-title {
+  font-size: 1rem;
+  margin-top: 4px;
+}
+
+@media (min-width: 960px) {
+  h2.section-title {
+    font-size: 1.5rem;
+  }
+
+  .sort-button {
+    height: 55px;
+    padding-top: 2px;
+    width: 90px;
+  
+    i {
+      cursor: inherit;
+      margin-top: 5px;
+    }
+  
+    label {
+      font-size: 14px;
+      bottom: -5px;
+    }
+  }
+}

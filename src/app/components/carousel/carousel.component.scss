@@ -9,3 +9,7 @@ ngb-carousel {
     object-fit: cover;
   }
 }
+
+ngb-carousel:focus {
+  outline: none;
+}

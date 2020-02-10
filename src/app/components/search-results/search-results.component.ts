@@ -94,6 +94,11 @@ export class SearchResultsComponent implements OnInit {
   public categories = [];
 
   /**
+   * Indicates sort type.
+   */
+  public sortyBy: string;
+
+  /**
    * Search form. Also used to set query params when updating search.
    */
   public searchForm = new FormGroup({
@@ -104,7 +109,8 @@ export class SearchResultsComponent implements OnInit {
     min: new FormControl(0),
     max: new FormControl(null),
     keywords: new FormControl(''),
-    distance: new FormControl('')
+    distance: new FormControl(''),
+    sortBy: new FormControl('')
   });
 
   /**
@@ -153,6 +159,14 @@ export class SearchResultsComponent implements OnInit {
       this.stateId = data.get('stateId') ? parseInt(data.get('stateId'), 10) : null;
       this.min = data.get('min') ? parseInt(data.get('min'), 10) : 0;
       this.max = data.get('max') ? parseInt(data.get('max'), 10) : null;
+      
+      let sortBy = data.get('sortBy');
+
+      if (sortBy && sortBy.match(/recent|distance|pricemin|pricemax/gi)) {
+        this.sortyBy = sortBy;
+      } else {
+        this.sortyBy = 'recent';
+      }
 
       this.searchForm.setValue({
         keywords: this.keywords,
@@ -162,7 +176,8 @@ export class SearchResultsComponent implements OnInit {
         category: this.category,
         condition: this.condition,
         min: this.min,
-        max: this.max
+        max: this.max,
+        sortBy: this.sortyBy
       });
 
       let params = {};
@@ -181,8 +196,8 @@ export class SearchResultsComponent implements OnInit {
    */
   public getCategories() {
     let categories = this.localStorageService.getItem('categories');
-    
-    if (categories) {
+
+    if (categories && categories.length) {
       this.categories = JSON.parse(categories);
       this.category = 0;
       return;
@@ -205,6 +220,7 @@ export class SearchResultsComponent implements OnInit {
     if (!stateId || stateId === '0') {
       this.cities = [];
       this.stateId = 0;
+      this.cityId = 0;
       this.searchForm.get('latitude').setValue(null);
       this.searchForm.get('longitude').setValue(null);
       return;
@@ -289,7 +305,6 @@ export class SearchResultsComponent implements OnInit {
    */
   public distanceChange(value: string): void {
     this.searchForm.get('distance').setValue(parseInt(value, 10));
-    debugger;
   }
 
   /**
@@ -330,5 +345,9 @@ export class SearchResultsComponent implements OnInit {
 
     navigationExtras = { queryParams };
     this.router.navigate(['/resultados'], navigationExtras);
+  }
+
+  public viewItem(id: number): void {
+    this.router.navigate(['/articulo', id]);
   }
 }

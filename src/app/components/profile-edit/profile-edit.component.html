@@ -1,0 +1,48 @@
+<div class="content row m-0 justify-content-center" *ngIf="profile">
+  <div class="col-md-5 mt-5">
+    <div class="card">
+      <div class="card-body">
+        <div class="row m-0">
+          <div class="col-md-4">
+            <img [src]="profile.photo_url" *ngIf="!previewUrl" class="border-rounded">
+            <img [src]="previewUrl" *ngIf="editMode && previewUrl" class="border-rounded">
+
+            <ngx-file-drop *ngIf="editMode" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)">
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                  <!-- Optional custom content that replaces the the entire default content. -->
+                  <!-- <button type="button" (click)="openFileSelector()">Browse Files</button> -->
+                </ng-template>
+              </ngx-file-drop>
+          </div>
+          <div class="col-md-8">
+            <span class="position-absolute editable" (click)="onEditClick()" *ngIf="!editMode">Editar</span>
+            <div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Nombre</label>
+                <input type="text" 
+                  [(ngModel)]="nameForm"
+                  class="form-control" 
+                  id="name" 
+                  aria-describedby="name"
+                  [disabled]="!editMode"
+                >
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">E-mail</label>
+                <input type="email" 
+                  [value]="profile.email"
+                  class="form-control" 
+                  id="email" 
+                  aria-describedby="email"
+                  disabled
+                >
+              </div>
+            </div>
+            <button *ngIf="editMode" class="btn btn-primary float-right" (click)="save()">Guardar Cambios</button>
+            <button *ngIf="editMode" class="btn btn-secondary mr-2 float-right" (click)="onCancelEdit()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

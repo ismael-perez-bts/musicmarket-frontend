@@ -14,10 +14,51 @@
   }
 
   button {
-    border-color: #b32218;
-    color: #b32218;
+    border-color: #2dccdc;
+    color: #2dccdc;
+  }
+
+  button.dropdown-toggle {
+    width: 192px;
+  }
+
+  button.dropdown-toggle:after {
+    top: 15px;
+    right: 4px;
+    position: absolute;
+  }
+
+  .search-input {
+    padding-top: 3px;
+
+    input.form-control:focus {
+      border-color: #ced4da;
+    }
+
+    button {
+      border-color: #ced4da;
+      color: #495057;
+    }
+
+    button.search-icon {
+      color: #fff;
+      background-color: #2dccdc;
+      border-color: #2dccdc;
+    }
+  }
+
+  .nav-searchbar {
+    width: 40%;
+    margin-top: 12px;
+  }
+
+  button:focus, input:focus {
+    outline: none;
+    box-shadow: none;
   }
 }
+
+
 
 .avatar-container {
   display: inline-block;
@@ -37,8 +78,29 @@
   left: unset;
   right: 0;
   color: #222;
+
+  span {
+    cursor: pointer;
+  }
+
+  span:hover {
+    color: #2dccdc;
+  }
 }
 
 :host ::ng-deep .navbar button.dropdown-item {
   color: #222;
+}
+
+::ng-deep .dropdown-menu {
+  width: 180px;
+  padding: 10px;
+}
+
+.search-input {
+  width: calc(100% - 470px);
+}
+
+button:focus, input:focus {
+  outline: none;
 }

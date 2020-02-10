@@ -1,5 +1,34 @@
-<nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="#"><img src="/assets/images/header-logo.png"></a>
+<nav class="navbar navbar-expand-lg navbar-light py-0 py-lg-2">
+  <a class="navbar-brand p-0" href="#"><img src="/assets/images/header-logo.png"></a>
+
+  <div class="search-input text-center d-none d-lg-inline-block">
+    <div class="input-group mb-3 nav-searchbar w-100">
+      <div class="input-group-prepend" ngbDropdown>
+        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+          <ng-container *ngIf="!selectedCategory">
+            Todas las categorias
+          </ng-container>
+          <ng-container *ngIf="selectedCategory">
+            {{selectedCategory.label}}
+          </ng-container>
+        </button>
+        <div class="dropdown-menu border-bottom" ngbDropdownMenu>
+          <span (click)="selectCategory(null)" class="d-inline-block w-100 py-2">
+            Todas las categorias
+          </span>
+          <span *ngFor="let category of categories" class="d-inline-block w-100 border-top py-2" (click)="selectCategory(category)">
+            {{category.label}}
+          </span>
+        </div>
+      </div>
+      <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="searchString" (keyup.enter)="search()">
+      <div class="input-group-append">
+        <button class="btn search-icon" type="button" (click)="search()"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </div>
+
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,16 +36,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#"><i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Observando</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Carrito</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Notificaciones</a>
+        <a class="nav-link" routerLink="/messages"><i class="far fa-comments"></i></a>
       </li>
     </ul>
 
@@ -40,7 +63,8 @@
           aria-expanded="false"
           ngbDropdownToggle
         >
-          <img [src]="profile.picture" alt="profile image">
+          <img [src]="profile.picture" alt="profile image" *ngIf="!profile.photo_url">
+          <img [src]="profile.photo_url" alt="profile image" *ngIf="profile.photo_url">
         </button>
         <div ngbDropdownMenu aria-labelledby="headerProfileDropdown">
           <button ngbDropdownItem (click)="onViewProfile()">Perfil</button>

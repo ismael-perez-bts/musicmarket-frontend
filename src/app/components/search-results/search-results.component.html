@@ -1,6 +1,6 @@
 <div class="content row m-0">
   <ng-container *ngIf="!loading">
-    <div class="col-lg-2 col-sm-4 col-1">
+    <div class="col-xl-2 col-md-4 col-1">
       <app-search-sidebar
         [stateId]="stateId"
         [cityId]="cityId"
@@ -24,12 +24,36 @@
       >
       </app-search-sidebar>
     </div>
-    <div class="col-lg-10 col-sm-8 col-11">
+    <div class="col-xl-10 col-md-8 col-11">
       <div class="results-container">
-        <h2 class="my-3 .section-title">150 Resultados</h2>
+        <div class="mx-0 my-2 text-right">
+          <!-- <h2 class="section-title d-none d-sm-inline-block float-left pt-2">148 Resultados</h2>
+          <div 
+            class="sort-button mb-1 d-inline-block border rounded text-center position-relative"
+            [ngClass]="{ 'active': sortyBy === 'recent' }"
+          >
+            <i class="fas fa-clock"></i>
+            <label class="d-inline-block w-100 text-center position-absolute">Reciente</label>
+          </div>
+          <div 
+            class="sort-button ml-1 d-inline-block border rounded text-center position-relative"
+            [ngClass]="{ 'disabled': !cityId, 'active': sortBy === 'distance' }"
+          >
+            <i class="fas fa-road"></i>
+            <label class="d-inline-block w-100 text-center position-absolute">Distancia</label>
+          </div>
+          <div class="sort-button ml-1 mb-1 d-inline-block border rounded text-center position-relative">
+            <i class="fas fa-hand-holding-usd"></i>
+            <label class="d-inline-block w-100 text-center position-absolute">Precio Menor</label>
+          </div>
+          <div class="sort-button ml-1 mb-1 d-inline-block border rounded text-center position-relative">
+            <i class="fas fa-dollar-sign"></i>
+            <label class="d-inline-block w-100 text-center position-absolute">Precio Mayor</label>
+          </div> -->
+        </div>
         <div class="row">
           <div class="col-12 col-lg-6 col-xl-4 mb-4" *ngFor="let item of items">
-            <app-listing-card [item]="item"></app-listing-card>
+            <app-listing-card [item]="item" (click)="viewItem(item.id)"></app-listing-card>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as paths from '../config/api-paths.config';
-import { Subscriber, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DataRequest } from '../models/request.model';
 import { Data } from '@angular/router';
 
@@ -22,5 +22,9 @@ export class ItemsService {
 
   public getItemById(id: string): Observable<DataRequest> {
     return this.http.get<DataRequest>(paths.itemById(id));
+  }
+
+  public getItemsByUserUid(uid: string): Observable<DataRequest> {
+    return this.http.get<DataRequest>(paths.userItems(uid));
   }
 }
