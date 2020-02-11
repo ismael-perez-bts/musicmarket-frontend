@@ -27,10 +27,11 @@
     <div class="col-xl-10 col-md-8 col-11">
       <div class="results-container">
         <div class="mx-0 my-2 text-right">
-          <!-- <h2 class="section-title d-none d-sm-inline-block float-left pt-2">148 Resultados</h2>
+          <h2 class="section-title d-none d-sm-inline-block float-left pt-2">148 Resultados</h2>
           <div 
             class="sort-button mb-1 d-inline-block border rounded text-center position-relative"
-            [ngClass]="{ 'active': sortyBy === 'recent' }"
+            [ngClass]="{ 'active': sortBy === 'recent' }"
+            (click)="sortSearch('recent')"
           >
             <i class="fas fa-clock"></i>
             <label class="d-inline-block w-100 text-center position-absolute">Reciente</label>
@@ -42,18 +43,30 @@
             <i class="fas fa-road"></i>
             <label class="d-inline-block w-100 text-center position-absolute">Distancia</label>
           </div>
-          <div class="sort-button ml-1 mb-1 d-inline-block border rounded text-center position-relative">
+          <div 
+            class="sort-button ml-1 mb-1 d-inline-block border rounded text-center position-relative"
+            [ngClass]="{ 'active': sortBy === 'pricemin' }"
+            (click)="sortSearch('pricemin')"
+          >
             <i class="fas fa-hand-holding-usd"></i>
             <label class="d-inline-block w-100 text-center position-absolute">Precio Menor</label>
           </div>
-          <div class="sort-button ml-1 mb-1 d-inline-block border rounded text-center position-relative">
+          <div
+            class="sort-button ml-1 mb-1 d-inline-block border rounded text-center position-relative"
+            [ngClass]="{ 'active': sortBy === 'pricemax' }"
+            (click)="sortSearch('pricemax')"
+          >
             <i class="fas fa-dollar-sign"></i>
             <label class="d-inline-block w-100 text-center position-absolute">Precio Mayor</label>
-          </div> -->
+          </div>
         </div>
         <div class="row">
           <div class="col-12 col-lg-6 col-xl-4 mb-4" *ngFor="let item of items">
             <app-listing-card [item]="item" (click)="viewItem(item.id)"></app-listing-card>
+          </div>
+          <div class="no-results text-center pt-5 mt-3 w-100" *ngIf="!items.length">
+            <i class="fab fa-creative-commons-zero d-inline-block w-100"></i>
+            <span>No hay resultados. :-(</span>
           </div>
         </div>
       </div>

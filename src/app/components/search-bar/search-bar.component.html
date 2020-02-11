@@ -8,22 +8,20 @@
         aria-label="search">
     </div>
     <div class="col-md-4 p-0 p-md-3 py-2 py-md-0">
-      <select
-        name="categories"
-        class="form-control custom-select mr-sm-2 w-100"
-      >
-        <option value="0">Todas las categorias</option>
-        <ng-container *ngFor="let category of categories">
-          <option [value]="category.id">{{category.label}}</option>
-        </ng-container>
-      </select>
+      <ng-container *ngIf="categories && categories.length">
+        <select
+          name="categories"
+          class="form-control custom-select mr-sm-2 w-100"
+          [value]="categoryId"
+          (change)="categoryChange($event.target.value)"
+        >
+          <option [value]="0">Todas las categorias</option>
+          <ng-container *ngFor="let category of categories">
+            <option [value]="category.id">{{category.label}}</option>
+          </ng-container>
+        </select>
+      </ng-container>
     </div>
-    <!-- <div class="col-md-2 pl-0">
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="locationCheckbox" formControlName="useCurrentLocation">
-        <label class="form-check-label" for="locationCheckbox">Usa ubicación actual</label>
-      </div>
-    </div> -->
     <div class="col-md-2 p-0">
       <button class="btn btn-outline-success my-2 my-sm-0 w-100 search-button" type="submit" (click)="search()">Buscar</button>
     </div>

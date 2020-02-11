@@ -96,7 +96,7 @@ export class SearchResultsComponent implements OnInit {
   /**
    * Indicates sort type.
    */
-  public sortyBy: string;
+  public sortBy: string;
 
   /**
    * Search form. Also used to set query params when updating search.
@@ -163,9 +163,9 @@ export class SearchResultsComponent implements OnInit {
       let sortBy = data.get('sortBy');
 
       if (sortBy && sortBy.match(/recent|distance|pricemin|pricemax/gi)) {
-        this.sortyBy = sortBy;
+        this.sortBy = sortBy;
       } else {
-        this.sortyBy = 'recent';
+        this.sortBy = 'recent';
       }
 
       this.searchForm.setValue({
@@ -177,7 +177,7 @@ export class SearchResultsComponent implements OnInit {
         condition: this.condition,
         min: this.min,
         max: this.max,
-        sortBy: this.sortyBy
+        sortBy: this.sortBy
       });
 
       let params = {};
@@ -345,6 +345,22 @@ export class SearchResultsComponent implements OnInit {
 
     navigationExtras = { queryParams };
     this.router.navigate(['/resultados'], navigationExtras);
+  }
+
+  public sortSearch(sortBy: string) {
+    let value = this.searchForm.get('sortBy');
+
+    if (sortBy === 'distance' && !this.cityId) {
+      return;
+    }
+
+    if (value.value === sortBy) {
+      return;
+    }
+
+    this.sortBy = sortBy;
+    this.searchForm.get('sortBy').setValue(sortBy);
+    this.search();
   }
 
   public viewItem(id: number): void {

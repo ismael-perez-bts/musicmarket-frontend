@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { Position } from '../../models/geolocation.model';
 import { DataRequest } from '../../models/request.model';
 import { ItemsService } from '../../services/items.service';
 import { LocalStorageService } from '../../services/localstorage.service';
 
+/**
+ * Home component.
+ */
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  /**
+   * Categories for search dropdown.
+   */
   public categories: Array<any> = [];
 
   constructor(
@@ -19,21 +24,16 @@ export class HomeComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) { }
 
+  /**
+   * @ignore
+   */
   ngOnInit() {
-    this.getCurrentLocation();
     this.getCategories();
   }
 
-  private getCurrentLocation(): Promise<Position> {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition((position: Position) => {
-        // do_something(position.coords.latitude, position.coords.longitude);
-
-        resolve(position);
-      });
-    });
-  }
-
+  /**
+   * Gets dropdown categories.
+   */
   public getCategories() {
     let categories = this.localStorageService.getItem('categories');
     
@@ -48,22 +48,18 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public async searchClick(formValue) {
-
-    let { useCurrentLocation, ...form } = formValue;
+  /**
+   * Receives object with keys to search.
+   * @param form Keys to search
+   */
+  public async searchClick(form) {
     let navigationExtras: NavigationExtras;
 
     try {
-      if (formValue.useCurrentLocation) {
-        let coordData: Position = await this.getCurrentLocation();
-        let { latitude, longitude } = coordData.coords;
-       form = { ...form, latitude, longitude };
-      }
-
       let queryParams = {};
       Object.keys(form).forEach((key) => {
         if (form[key]) {
-          queryParams = { ...queryParams, [key]: form[key ]};
+          queryParams = { ...queryParams, [key]: form[key] };
         }
       });
 
