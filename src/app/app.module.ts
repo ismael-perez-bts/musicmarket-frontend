@@ -44,6 +44,8 @@ import { MessengerComponent } from './components/modals/messenger/messenger.comp
 import { MessagesComponent } from './components/messages/messages.component';
 import { SliderBarComponent } from './components/slider-bar/slider-bar.component';
 
+import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module';
+
 /**
  * @ignore
  */
@@ -81,7 +83,8 @@ import { SliderBarComponent } from './components/slider-bar/slider-bar.component
     FormsModule,
     StoreModule.forRoot({ items: itemsReducer }),
     EffectsModule.forRoot([ItemsEffects]),
-    NgxFileDropModule
+    NgxFileDropModule,
+    AdminDashboardModule,
   ],
   providers: [
     LocalStorageService,

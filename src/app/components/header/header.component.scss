@@ -62,8 +62,8 @@
 
 .avatar-container {
   display: inline-block;
-  height: 40px;
-  width: 40px;
+  height: 40px !important;
+  width: 40px !important;
   border-radius: 50%;
   overflow: hidden;
 
@@ -72,6 +72,14 @@
     height: auto;
     object-fit: cover;
   }
+}
+
+.avatar-container::after {
+  display: none;
+}
+
+.user-dropdown {
+  padding: 0;
 }
 
 .dropdown-menu {

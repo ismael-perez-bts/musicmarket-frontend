@@ -66,7 +66,7 @@
           <img [src]="profile.picture" alt="profile image" *ngIf="!profile.photo_url">
           <img [src]="profile.photo_url" alt="profile image" *ngIf="profile.photo_url">
         </button>
-        <div ngbDropdownMenu aria-labelledby="headerProfileDropdown">
+        <div class="user-dropdown" ngbDropdownMenu aria-labelledby="headerProfileDropdown">
           <button ngbDropdownItem (click)="onViewProfile()">Perfil</button>
           <button ngbDropdownItem (click)="onSignOut()">Cerrar Sesión</button>
         </div>
