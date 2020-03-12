@@ -22,6 +22,10 @@ export class ProfileComponent implements OnInit {
     private readonly itemsService: ItemsService,
     private readonly router: Router
   ) {
+
+  }
+
+  ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     this.usersService.getUser(parseInt(id)).subscribe((data: DataRequest) => {
       this.profile = data.data;
@@ -29,10 +33,6 @@ export class ProfileComponent implements OnInit {
     }, err => {
       debugger;
     });
-  }
-
-  ngOnInit() {
-
   }
 
   /**

@@ -16,23 +16,39 @@ import { FirebaseService } from '../firebase/firebase.service'
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private localStorage: LocalStorageService, private firebase: FirebaseService) {
-    console.log('loaded');
+
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let token = this.firebase.getToken();
-    if (token) {
+    let isAws = request.url.match(/amazonaws/gi);
+
+    if (isAws) {
+      let headers = {
+        'Content-Type': 'image/jpeg',
+        'x-amz-acl': 'public-read' 
+      };
+      
       let req = request.clone({
-        setHeaders: {
-          Authorization: token
-        }
+        setHeaders: headers
       });
-  
-      console.log(req);
+
       return next.handle(req);
     }
+    
+    let token = this.firebase.getToken();
+    let headers: { Authorization?: string } = {};
 
-    console.log('oh no...');
-    return next.handle(request);
+    if (token) {
+      headers = {
+        ...headers,
+        Authorization: token
+      }
+    }
+
+    let req = request.clone({
+      setHeaders: headers
+    });
+
+    return next.handle(req);
   }
 }

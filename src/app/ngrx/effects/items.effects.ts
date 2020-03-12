@@ -4,6 +4,7 @@ import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError, merge, exhaustMap } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
 import { searchItems, searchItemsLoaded } from '../actions/items.actions';
+import { DataRequest } from '../../models/request.model';
 
 @Injectable()
 export class ItemsEffects {
@@ -12,7 +13,7 @@ export class ItemsEffects {
       ofType(searchItems),
       exhaustMap((action: any) => this.searchService.search(action.params)
         .pipe(
-          map(items => ({ type: searchItemsLoaded, results: items })),
+          map((items: DataRequest) => ({ type: searchItemsLoaded, results: items.data })),
           catchError(() => EMPTY)
         )
       )

@@ -40,20 +40,19 @@ export class FirebaseService {
         this.renewToken();
       }
     });
-    // debugger;
-    // this.db = firebase.database();
-    // this.writeData();
   }
 
   public async signInWithPopup() {
     try {
       let result = await this.firebase.auth().signInWithPopup(this.provider);
-      let idToken = await firebase.auth().currentUser.getIdToken(true);
       this.localStorageService.setItem('token', result.credential.accessToken);
-      this.localStorageService.setItem('idToken', idToken);
+      // let idToken = await this.firebase.auth().currentUser.getIdToken(true);
+      // this.localStorageService.setItem('token', result.credential.accessToken);
+      // this.localStorageService.setItem('idToken', idToken);
+      let idToken = await this.renewToken();
       
-      this.usersService.signIn(idToken).subscribe((data) => { 
-        this.localStorageService.setItem('profile', JSON.stringify(data));
+      this.usersService.signIn(idToken.idToken).subscribe((data: DataRequest) => { 
+        this.localStorageService.setItem('profile', JSON.stringify(data.data));
         this.usersService.updateProfileSubject.next(data);
       });
     } catch (e) {
@@ -63,12 +62,28 @@ export class FirebaseService {
   }
 
   public getToken() {
-    return this.localStorageService.getItem('idToken');
+    let tokenObj = this.localStorageService.getItem('idToken');
+
+    if (!tokenObj) {
+      return null;
+    }
+
+    let token = JSON.parse(tokenObj);
+    return token.idToken;
   }
 
   public async renewToken() {
     let idToken = await firebase.auth().currentUser.getIdToken(true);
-    this.localStorageService.setItem('idToken', idToken);
+
+    if (!idToken) {
+      return null;
+    }
+
+    let timeExp = new Date().getTime();
+    let token = { timeExp, idToken };
+
+    this.localStorageService.setItem('idToken', JSON.stringify(token));
+    return token;
   }
 
   public writeData () {

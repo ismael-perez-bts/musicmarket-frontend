@@ -60,10 +60,10 @@ button:focus, input:focus {
 
 
 
-.avatar-container {
+button.btn.avatar-container {
   display: inline-block;
   height: 40px;
-  width: 40px;
+  width: 40px !important;
   border-radius: 50%;
   overflow: hidden;
 
@@ -72,6 +72,10 @@ button:focus, input:focus {
     height: auto;
     object-fit: cover;
   }
+}
+
+button.btn.avatar-container:after {
+  display: none;
 }
 
 .dropdown-menu {

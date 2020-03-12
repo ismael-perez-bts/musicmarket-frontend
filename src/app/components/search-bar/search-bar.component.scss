@@ -1,5 +1,10 @@
-.search-button, .search-button:hover {
-  border-color: #b32218;
-  color: #b32218;
+.search-button {
+  border-color: #c75347;
+  color: #c75347;
   background-color: #fff;
+}
+
+.search-button:hover {
+  color: #fff;
+  background-color: #c75347;
 }

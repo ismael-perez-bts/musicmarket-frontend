@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
     this.checkStatus();
     this.profile$ = this.usersServices.updateProfileSubject.subscribe(data => {
       this.profile = data;
+      debugger;
     });
   }
 

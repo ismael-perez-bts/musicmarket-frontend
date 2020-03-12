@@ -39,6 +39,7 @@
           <div 
             class="sort-button ml-1 d-inline-block border rounded text-center position-relative"
             [ngClass]="{ 'disabled': !cityId, 'active': sortBy === 'distance' }"
+            (click)="sortSearch('distance')"
           >
             <i class="fas fa-road"></i>
             <label class="d-inline-block w-100 text-center position-absolute">Distancia</label>
