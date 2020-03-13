@@ -32,3 +32,8 @@ export const signIn = `${mainUrl}/auth/sign-in`;
 export const userItems = uid => `${users}/items/${uid}`;
 export const chats = `${api}/chats`;
 export const chatOpen = id => `${chats}/open/${id}`;
+
+
+// Admin routes, eventually to be part of another app.
+export const admin = `${api}/admin`;
+export const adminBlog = `${api}/blog`;

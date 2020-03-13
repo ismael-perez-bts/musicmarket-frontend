@@ -1,0 +1,56 @@
+<div class="post-article-container row content m-0 justify-content-center">
+  <div class="col-md-11 mt-5">  
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="articleForm">
+          <div class="form-group">
+            <label for="title">Titulo</label>
+            <input type="text" class="form-control" id="title" aria-describedby="title" formControlName="title">
+          </div>
+          <div class="form-group">
+            <label for="subtitle">Subtitulo</label>
+            <textarea 
+              class="form-control" 
+              id="validationTextarea" 
+              placeholder="Escriba subtitulo aqui."
+              formControlName="subtitle"
+              required  
+            >
+            </textarea>
+          </div>
+          <div class="form-group">
+            <label for="tags">Etiquetas</label>
+            <input type="text" class="form-control" id="tags" aria-describedby="tags" formControlName="tags">
+          </div>
+          <div class="row m-0 mb-4">
+            <div class="form-group col-12 px-0">
+              <label for="category">Categoria</label>
+              <select class="custom-select custom-select" id="category" formControlName="category">
+                <option selected>Categoria</option>
+                <option value="1">Noticias y reseñas</option>
+                <option value="2">Artistas</option>
+                <option value="3">Demos</option>
+                <option value="4">Reporte de tono</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row m-0 mt-3">
+            <angular-editor
+              [placeholder]="'Enter text here...'"
+              [(ngModel)]="htmlContent"
+              [ngModelOptions]="{standalone: true}"
+              [config]="editorConfig"
+            >
+            </angular-editor>
+          </div>
+
+          <div class="row m-0 mt-3 float-right">
+            <button class="btn btn-primary" (click)="onSave()">Guardar Cambios</button>
+            <button class="btn btn-primary ml-2" disabled>Publicar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
