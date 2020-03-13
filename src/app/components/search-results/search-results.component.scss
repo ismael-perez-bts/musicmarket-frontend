@@ -59,20 +59,14 @@ h2.section-title {
   h2.section-title {
     font-size: 1.5rem;
   }
+}
 
-  .sort-button {
-    height: 55px;
-    padding-top: 2px;
-    width: 90px;
-  
-    i {
-      cursor: inherit;
-      margin-top: 5px;
-    }
-  
-    label {
-      font-size: 14px;
-      bottom: -5px;
-    }
+.no-results {
+  i {
+    font-size: 200px;
+  }
+
+  span {
+    font-size: 40px;
   }
 }

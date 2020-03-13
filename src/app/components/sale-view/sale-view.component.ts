@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { ItemsService } from '../../services/items.service';
 import { Geolocation } from '../../models/geolocation.model';
 import { LocationsService } from '../../services/locations.service';
+import { DataRequest } from 'src/app/models/request.model';
+import { FirebaseService } from '../../firebase/firebase.service';
+
 
 @Component({
   selector: 'app-sale-view',
@@ -12,6 +17,13 @@ import { LocationsService } from '../../services/locations.service';
 })
 export class SaleViewComponent implements OnInit {
   public previewUrl: string | ArrayBuffer;
+  public stateId: number;
+  public cityId: number;
+
+  /**
+   * List of cities to be displayed in dropdown.
+   */
+  public cities = [];
 
   /**
    * Image file dropped in drop area.
@@ -26,7 +38,8 @@ export class SaleViewComponent implements OnInit {
     latitude: new FormControl('', Validators.required),
     longitude: new FormControl('', Validators.required),
     cityId: new FormControl('', Validators.required),
-    stateId: new FormControl('', Validators.required)
+    stateId: new FormControl('', Validators.required),
+    imageName: new FormControl('', Validators.required)
   });
 
   public image = new FormControl();
@@ -36,10 +49,16 @@ export class SaleViewComponent implements OnInit {
 
   constructor(
     private readonly itemsService: ItemsService,
-    private readonly locationService: LocationsService
-  ) { }
+    private readonly locationsService: LocationsService,
+    private readonly http: HttpClient,
+    private readonly router: Router,
+    private readonly firebaseService: FirebaseService
+  ) {
+    this.stateId = 0;
+  }
 
   ngOnInit() {
+    this.firebaseService.renewToken();
   }
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -56,6 +75,8 @@ export class SaleViewComponent implements OnInit {
           reader.onload = (_event) => { 
             this.previewUrl = reader.result;
           }
+
+          this.form.get('imageName').setValue(file.name);
           // Here you can access the real file
  
           /**
@@ -82,6 +103,70 @@ export class SaleViewComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * Gets cities for selected state.
+   * @param stateId State ID
+   * @param resetCity Indicates if city should be set to 1.
+   */
+  private getCities(stateId: number | string, resetCity: boolean) {
+
+    if (!stateId || stateId === '0') {
+      this.cities = [];
+      this.stateId = 0;
+      this.cityId = 0;
+      this.form.get('latitude').setValue(null);
+      this.form.get('longitude').setValue(null);
+      return;
+    }
+
+    this.stateId = parseInt(stateId as string, 10);
+
+    this.locationsService.getCitiesByStateId(stateId).subscribe((data: { message: any, data: any }) => {
+      if (resetCity) {
+        this.cityId = data.data[0].city_id;
+      }
+      
+      this.cities = data.data;
+      this.form.get('latitude').setValue(data.data[0].lat);
+      this.form.get('longitude').setValue(data.data[0].lng);
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  /**
+   * Requests state change and requests new cities list.
+   * @param id 
+   */
+  public requestStateChange(id: string) {
+    this.stateId = parseInt(id, 10);
+    this.form.get('stateId').setValue(this.stateId);
+
+    if (!this.stateId) {
+      this.cityId = 0;
+      this.form.get('cityId').setValue(0);
+      this.cities = [];
+      this.form.get('latitude').setValue('');
+      this.form.get('longitude').setValue('');
+      return;
+    }
+
+    this.getCities(id, true);
+  }
+
+  /**
+   * Method to change city id.
+   * @param value City ID
+   */
+  public cityIdChange(value) {
+    let id = parseInt(value, 10);
+    let cityData = this.cities.find(city => city.city_id === id);
+    this.cityId = cityData.city_id;
+    this.form.get('cityId').setValue(this.cityId);
+    this.form.get('latitude').setValue(cityData.lat);
+    this.form.get('longitude').setValue(cityData.lng);
+  }
  
   public fileOver(event){
     console.log(event);
@@ -98,12 +183,21 @@ export class SaleViewComponent implements OnInit {
       return;
     }
 
-    const item = new FormData();
-    item.append('file', this.image.value);
-    item.append('data', JSON.stringify(this.form.value));
-
-    this.itemsService.post(item).subscribe(data => {
+    this.itemsService.post(this.form.value).subscribe((data: DataRequest) => {
+      let results = data.data.results;
+      let signedToken = data.data.signedToken;
+      this.uploadImage(signedToken, results.id);
+    }, err => {
       debugger;
+    });
+  }
+
+  public uploadImage(signedToken, id) {
+    let file = this.image.value;
+    let image = new Blob([file]);
+
+    this.http.put(signedToken, image).subscribe(result => {
+      this.router.navigate(['/articulo', id]);
     }, err => {
       debugger;
     });
@@ -114,7 +208,7 @@ export class SaleViewComponent implements OnInit {
     this.form.get('longitude').setValue(location.longitude);
     this.form.get('latitude').setValue(location.latitude);
 
-    this.locationService.getCityByCoordinates(location.latitude, location.longitude).subscribe(data => {
+    this.locationsService.getCityByCoordinates(location.latitude, location.longitude).subscribe(data => {
       this.cityName = data.data.city_name;
       this.stateName = data.data.name;
       this.form.get('cityId').setValue(data.data.city_id);

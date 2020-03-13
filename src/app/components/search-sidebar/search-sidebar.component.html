@@ -94,7 +94,7 @@
       <option value="200">200 km</option>
     </select> -->
 
-    <label class="d-inline-block w-100 mt-2 section-title font-weight-light m-0 border-top pt-2">Condición</label>
+    <label class="d-inline-block w-100 mt-2 mb-2 section-title font-weight-light m-0 border-top pt-2">Condición</label>
     <!-- <select class="form-control custom-select mr-sm-2 w-100" [(ngModel)]="condition" (ngModelChange)="conditionChange.emit($event)">
       <option value="0" selected>Todas condiciónes</option>
       <option value="1">Nuevo</option>
@@ -102,21 +102,41 @@
     </select> -->
 
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="condition" id="all" value="option1" checked>
+      <input class="form-check-input" 
+        type="radio" 
+        name="condition" 
+        id="all" 
+        [value]="0" 
+        [(ngModel)]="condition"
+        (ngModelChange)="conditionChange.emit($event)"
+      >
       <label class="form-check-label radio mt-1" for="all">
         Todas condiciónes
       </label>
       <div class="check"></div>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="condition" id="new" value="option2">
+      <input class="form-check-input" 
+        type="radio"
+        name="condition"
+        id="new"
+        [value]="1"
+        [ngModel]="condition"
+        (ngModelChange)="conditionChange.emit($event)"
+      >
       <label class="form-check-label radio" for="new">
         Nuevo
       </label>
       <div class="check"></div>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="condition" id="used" value="option3" disabled>
+      <input class="form-check-input"
+        type="radio" name="condition"
+        id="used"
+        [value]="2"
+        [(ngModel)]="condition"
+        (ngModelChange)="conditionChange.emit($event)"
+      >
       <label class="form-check-label radio" for="used">
         Usado
       </label>

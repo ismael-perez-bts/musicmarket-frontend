@@ -39,15 +39,10 @@ export class SearchSidebarComponent implements OnInit {
   }
 
   /**
-   * 
+   * @ignore
    */
   ngOnInit() {
-    // if (!this.distance) {
-    //   this.distanceSlideValue = 0;
-    // } else {
-    //   this.distanceSlideValue = this.distance;
-    // }
-    console.log('distance: ', this.distance);
+
   }
 
   /**

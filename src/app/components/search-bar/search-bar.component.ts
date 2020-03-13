@@ -10,21 +10,25 @@ export class SearchBarComponent implements OnInit {
   @Output() searchClick: EventEmitter<any> = new EventEmitter<any>();
   @Input() categories: Array<any>;
 
-  public caregoryId: string = '0';
+  public categoryId: number;
 
   public searchForm: FormGroup = new FormGroup({
-    useCurrentLocation: new FormControl(false),
     keywords: new FormControl(''),
-    category: new FormControl('')
   });
 
   constructor() { }
 
   ngOnInit() {
+    this.categoryId = 0;
+  }
+
+  categoryChange(val: string) {
+    this.categoryId = parseInt(val, 10);
   }
 
   search() {
     let value = this.searchForm.value;
+    value = { ...value, category: this.categoryId };
     this.searchClick.emit(value);
   }
 }

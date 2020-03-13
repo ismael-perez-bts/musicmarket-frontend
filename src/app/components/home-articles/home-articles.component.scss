@@ -9,6 +9,34 @@ img {
   z-index: 0;
 }
 
+.card-top {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.card-middle {
+  border-radius: 0;
+}
+
+.card-bottom {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.card {
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .card-top, .card-middle, .card-bottom {
+    border-radius: 5px;
+  }
+}
+
 .category-box.card {
   height: 200px;
   overflow: hidden;

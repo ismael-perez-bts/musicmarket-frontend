@@ -77,3 +77,32 @@
     </ul>
   </div>
 </nav>
+
+<div class="search-bar-mobile">
+  <div class="search-input text-center d-block d-lg-none w-100 border-bottom px-2">
+    <div class="input-group mb-3 nav-searchbar w-100">
+      <div class="input-group-prepend" ngbDropdown>
+        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+          <ng-container *ngIf="!selectedCategory">
+            Todas las categorias
+          </ng-container>
+          <ng-container *ngIf="selectedCategory">
+            {{selectedCategory.label}}
+          </ng-container>
+        </button>
+        <div class="dropdown-menu border-bottom" ngbDropdownMenu>
+          <span (click)="selectCategory(null)" class="d-inline-block w-100 py-2">
+            Todas las categorias
+          </span>
+          <span *ngFor="let category of categories" class="d-inline-block w-100 border-top py-2" (click)="selectCategory(category)">
+            {{category.label}}
+          </span>
+        </div>
+      </div>
+      <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="searchString" (keyup.enter)="search()">
+      <div class="input-group-append">
+        <button class="btn search-icon" type="button" (click)="search()"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </div>
+</div>

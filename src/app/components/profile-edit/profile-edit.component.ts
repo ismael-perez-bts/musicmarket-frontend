@@ -120,15 +120,16 @@ export class ProfileEditComponent {
       return;
     }
 
-    let data = { name: this.nameForm, photo_url: this.profile.photo_url };
-    let form = new FormData();
-    form.append('data', JSON.stringify(data));
+    let data = { name: this.nameForm, image: this.profile.photo_url };
+    // let form = new FormData();
+    // form.append('data', JSON.stringify(data));
 
     if (this.image.value) {
-      form.append('file', this.image.value);
+      // form.append('file', this.image.value);
+      data = { ...data, image: this.image.value.name };
     }
 
-    this.usersService.updateProfile(form).subscribe(updated => {
+    this.usersService.updateProfile(data).subscribe(updated => {
       let storedUser = JSON.parse(this.localStorageService.getItem('profile'));
       storedUser = { ...storedUser, name: data.name }
       this.profile = updated.data;
